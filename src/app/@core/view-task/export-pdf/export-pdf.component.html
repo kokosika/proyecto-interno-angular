@@ -1,0 +1,36 @@
+<div id="testPrint">
+    <div id="print">
+        <div>
+            <app-hoja-1 (InfoProyecto)="tomaProyecto($event)"></app-hoja-1>
+        </div>
+
+        <div class="html2pdf__page-break"></div>
+        <div>
+            <app-hoja-2></app-hoja-2>
+        </div>
+
+        <div class="html2pdf__page-break"></div>
+        <div>
+            <app-hoja-3></app-hoja-3>
+        </div>
+
+        <div class="html2pdf__page-break"></div>
+        <div>
+            <app-hoja-5></app-hoja-5>
+        </div>
+
+        <div class="html2pdf__page-break"></div>
+        <div>
+            <app-hoja-4></app-hoja-4>
+        </div>
+
+                <div class="html2pdf__page-break"></div>
+                <div>
+                        <app-hoja-6></app-hoja-6>
+                </div>
+    </div>
+</div>
+<div class="text-center">
+    
+<button class="btn btn-default button-blue" (click)="testPDF()">Descargar PDF</button>
+</div>

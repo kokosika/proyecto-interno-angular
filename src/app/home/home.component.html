@@ -1,0 +1,227 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Proyectos Por Cliente</h4>
+                        <p class="category">Porcentaje asignado por cliente</p>
+                    </div>
+                    <div class="content">
+                        <div class="table-full-width">
+                            <p-chart type="pie" [data]="graficoClientePorProyectos"></p-chart>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-history"></i> Updated 3 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Proyectos por etapas</h4>
+                        <p class="category">Proyectos en etapa clientes</p>
+                    </div>
+                    <div class="content">
+                        <div class="col-md-6 text-center">
+                            <p-dropdown appendTo="body" [autoWidth]="true" [options]="comboClientes" placeholder="Seleccione un cliente" optionLabel="name" [showClear]="true"
+                                (onChange)="onChangeCliente($event.value)"></p-dropdown>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <p-dropdown appendTo="body" [autoWidth]="true" [options]="comboContraparte" placeholder="Seleccione una Contraparte" optionLabel="name" [showClear]="true"></p-dropdown>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="table-full-width">
+                            <p-chart type="pie" [data]="graficoClientePorEtapas" [options]="opcionesGrafico"></p-chart>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-history"></i> Updated 3 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Proyectos sin avance</h4>
+                        <p class="category">Proyectos sin avances</p>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="table-full-width">
+                                    <p-chart type="pie" [data]="graficoAvances"></p-chart>
+                                </div>
+                                <div class="footer">
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="table-full-width">
+                                    <p-table #dt [columns]="cols" [value]="avancesData" [paginator]="true" [rows]="7" [responsive]="true" [autoLayout]="true"
+                                        class="table table-hover table-responsive table-bordered" [loading]=false>
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr class="thead-light">
+                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                                    {{col.header}}
+                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                            <tr>
+                                                <td *ngFor="let col of columns">
+                                                    <div *ngIf="col.field == 'nombreProyecto'; then thenBlock else elseBlock"></div>
+                                                    <ng-template #thenBlock>
+                                                        <a href="javascript:void(0)" (click)="verProyecto(rowData)">{{rowData[col.field]}}</a>
+                                                    </ng-template>
+                                                    <ng-template #elseBlock>{{rowData[col.field]}}</ng-template>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="footer">
+                                    <hr>
+                                    <div class="stats">
+                                        <i class="fa fa-history"></i> Updated 3 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Tareas en Proyectos</h4>
+                        <p class="category">Avences de tareas en proyectos</p>
+                    </div>
+                    <div class="content">
+                        <div class="table-full-width" style="overflow-x: scroll; max-height: 1000px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre Tarea</th>
+                                        <th class="text-center">Porcentaje Avance</th>
+                                        <th class="text-center">Porcentaje Esperado</th>
+                                        <th class="text-center" style="width: 400px">Fecha Termino</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of tareas">
+                                        <td>{{data.nombreTarea}}</td>
+                                        <td class="text-center">
+                                            {{data.porcAvanceTarea}}%
+                                        </td>
+                                        <td class="text-center">
+                                            {{data.porcentajeEsperado}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{data.fechaTerminoTarea | date: 'MM-dd-yyyy'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <i class="fa fa-history"></i> Updated 3 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Otras Tareas</h4>
+                        <p class="category">Otro tipos de tareas no programadas</p>
+                    </div>
+                    <div class="content">
+                        <div class="table-full-width" style="overflow-x: scroll; max-height: 1000px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre Tarea</th>
+                                        <th class="text-center">Enviado Por:</th>
+                                        <th class="text-center">Fecha Envio:</th>
+                                        <th class="text-center">Fecha Termino:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of otrasTareas">
+                                        <td>{{data.mensaje}}</td>
+                                        <td class="text-center">
+                                            {{data.nombreUsuarioEnviante}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{data.fechaCreacion | date: 'dd-MM-yyyy'}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{data.fechaTermino | date: 'dd-MM-yyyy'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <button type="button" class="btn button-azul" (click)="mostrarDialogo()">Crear Tarea</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Asignar tareas no programadas" [(visible)]="displayInsert">
+    <form [formGroup]="rFormInsert" (ngSubmit)="save(rFormInsert.value)">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <p-multiSelect appendTo="body" [options]="usuarios" optionLabel="name" [resetFilterOnHide]=true [filterPlaceHolder]="'Seleccione Usuarios'"
+                    [defaultLabel]="'Seleccione usuarios para enviar'" [panelStyle]="{minWidth:'24em'}" formControlName="usuarioReceptor"></p-multiSelect>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <span class="ui-float-label">
+                <textarea id="descripcion" type="text" size="100" pInputText class="form-control" formControlName="mensaje" rows="4"></textarea>
+                <label for="descripcion">Cuerpo Mensaje</label>
+            </span>
+        </div>
+        <div class="form-group">
+            <span class="ui-float-label">
+                <p-calendar appendTo="body" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy" id="fechaFin" formControlName="fechaTermino"></p-calendar>
+                <label for="fechaFin">Fecha Termino</label>
+            </span>
+        </div>
+        <div class="form-group">
+            <div style="text-align: center">
+                <button type="submit" class="btn button-azul">Enviar Tarea</button>
+            </div>
+        </div>
+        <br>
+    </form>
+</p-dialog>

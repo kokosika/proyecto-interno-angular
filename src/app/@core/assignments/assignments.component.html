@@ -1,0 +1,29 @@
+<div>
+    <div class="container-fluid">
+        <form [formGroup]="rFormSearch" (ngSubmit)="search(rFormSearch.value)">
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-4">
+                    <p-dropdown [options]="comboOccupation" placeholder="Seleccione un Cargo" optionLabel="name" [showClear]="true" formControlName="occupation"></p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <p-dropdown [options]="comboProyect" placeholder="Seleccione un Proyecto" optionLabel="name" [showClear]="true" formControlName="proyect"></p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <p-calendar placeholder="Rango de fechas" selectionMode="range" readonlyInput="true" [locale]="es" formControlName="dates"></p-calendar>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4 text-center">
+                    <button type="submit" class="btn btn-default button-azul">Buscar</button>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<daypilot-scheduler [config]="config" [events]="events"></daypilot-scheduler>

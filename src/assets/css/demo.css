@@ -1,0 +1,120 @@
+@media (min-width: 992px){
+    .typo-line{
+        padding-left: 140px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .typo-line .category{
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0px;
+        position: absolute;
+    }
+}
+
+.all-icons [class*="pe-"]{
+    font-size: 40px;
+}
+.all-icons input{
+    border: 0;
+}
+.all-icons .font-icon-detail{
+    text-align: center;
+    padding: 45px 0px 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+.all-icons .font-icon-detail input{
+    margin: 25px auto 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    font-size: 13px;
+}
+
+#map{
+    position:relative;
+    width:100%;
+    height: 100%;
+}
+.map{
+    height: 280px !important;
+
+}
+.places-buttons .btn{
+    margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+    background: rgba(255, 255, 255, 0.14);
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+    text-align: center;
+}
+
+.button-azul{
+    background-color: #161F31 !important; 
+    color:white !important;
+}
+
+button {
+    background-color: #161F31 !important; 
+    color:white !important;
+}
+
+.ui-fileupload{
+    background-color: #161F31 !important; 
+    color:white !important;
+}
+.ui-fileupload-buttonbar{
+    background-color: #161F31 !important; 
+    color:white !important;
+}
+.ui-fileupload-content{
+    background-color: #161F31 !important; 
+    color:white !important;
+}
+.ui-widget-header .ui-button, .ui-widget-content .ui-button, .ui-widget.ui-button, .ui-button{
+    background-color: #161F31 !important; 
+    background: #161F31;
+    color:white !important;
+    border: 1px solid #161F31 !important;
+}
+
+a{ color: black !important; }
+a:hover {color: #161F31 !important;  }
+.ui-table .ui-sortable-column.ui-state-highlight {
+    background-color: #161F31 !important;
+    color: #FFFFFF;
+}
+
+.ui-paginator .ui-paginator-page.ui-state-active {
+    background: #161F31 !important;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(24, 107, 160);
+    color: #ffffff !important;
+    border-color: #156090 !important;
+}
+
+.boton-subida {
+    height: 42px !important;
+}

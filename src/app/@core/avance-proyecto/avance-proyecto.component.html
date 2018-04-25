@@ -1,0 +1,155 @@
+<div id="idTablas">
+    <p-table #dt [columns]="cols" [value]="avances" selectionMode="single" [paginator]="true" [rows]="10" [responsive]="true"
+        [autoLayout]="true" class="table table-hover table-responsive table-bordered" [loading]=false>
+        <ng-template pTemplate="header" let-columns>
+            <tr class="thead-light">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th>Operaciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+                <td>
+                    <a href="javascript:void(0)" (click)="selectRowAvance(rowData)">Editar</a>||
+                    <a href="javascript:void(0)" (click)="deleteConfir(rowData.idAvanceProyecto)">Eliminar</a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+            <div style="text-align:right">
+                <button class="btn btn-default button-azul" type="button" pButton icon="fa-plus" (click)="showDialogToAddAvance()" label="Agregar A"></button>
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Detalles Avance" [(visible)]="displayDialogAvance" [responsive]="true" showEffect="fade" [modal]="false"
+    [width]="600">
+    <div class="ui-g ui-fluid" *ngIf="avance">
+        <form [formGroup]="rFormInsertAvance" (ngSubmit)="saveAvance(rFormInsertAvance.value)">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="nombreR">Fecha Avance</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="fechaA" type="date" class="formcontrol" formControlName="fechaAvance" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="descripcionR">Porcentaje Avance</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="porcentajeA" type="text" class="form-control" formControlName="porcentajeAvance" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planM">Porcentaje Esperado</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="porcentajeE" type="text" class="form-control" formControlName="porcentajeEsperado" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planA">Descripcion</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputText [rows]="4" [cols]="30" autoResize="autoResize" id="descripcionA" type="text" class="form-control" formControlName="descripcion"></textarea>
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planM">Días de Atraso</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="diasAtraso" type="text" class="form-control" formControlName="diasAtraso" />
+                </div>
+            </div>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" class="btn btn-default button-azul">Guardar</button>
+                <button type="button" class="btn btn-default button-azul" (click)="closeAvance()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-dialog header="Detalles Avance" [(visible)]="displayEditAvance" [responsive]="true" showEffect="fade" [modal]="false"
+    [width]="600">
+    <div class="ui-g ui-fluid" *ngIf="avance">
+        <form [formGroup]="rFormEditAvance" (ngSubmit)="updateAvance(rFormEditAvance.value)">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="vigR">ID Avance Proyecto</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="idAvanceProyecto" type="text" class="form-control" formControlName="idAvanceProyecto" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="nombreR">fecha Avance</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="fechaA" type="date" class="form-control" formControlName="fechaAvance" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="descripcionR">Porcentaje Avance</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="porcentajeA" type="text" class="form-control" formControlName="porcentajeAvance" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planM">Porcentaje Esperado</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="porcentajeE" type="text" class="form-control" formControlName="porcentajeEsperado" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planA">Descripcion</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="descripcionA" type="text" class="form-control" formControlName="descripcion" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planM">Días de Atraso</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="diasAtraso" type="text" class="form-control" formControlName="diasAtraso" />
+                </div>
+            </div>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" class="btn btn-default button-azul">Actualizar</button>
+                <button type="button" class="btn btn-default button-azul" (click)="closeAvance()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+
+<p-chart type="line" [data]="data" width="10w" height="20w"></p-chart>
+
+<p-confirmDialog header="Confirmación" icon="fa fa-question-circle" width="425" appendTo="body" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="fa-check" label="Si" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>

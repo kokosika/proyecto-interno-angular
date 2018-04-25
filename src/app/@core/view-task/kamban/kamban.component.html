@@ -1,0 +1,150 @@
+<br>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div style="overflow-x: scroll; max-height: 1000px;" class="col-md-3" pDroppable="dd" (onDrop)="dropTodasLasTareas($event)">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Backlog</h4>
+                        <p class="category">Todas las Tareas</p>
+                    </div>
+                    <div class="content">
+                        <div [ngClass]="dinamicClassAdvancePercentage(obj)" *ngFor="let obj of todasLasTareas" class="card ui-state-default ui-helper-clearfix" pDraggable="dd"
+                            (onDragStart)="dragStartTodasLasTareas($event,obj)" (onDragEnd)="dragEndTodasLasTareas($event)">
+                            <div class="header">
+                                <i class="fa fa-arrows fa-1x" style="float:right;margin-top:8px"></i>
+                                <h4 class="title font-size-task">{{obj.nombre}}</h4>
+                                <div class="category">
+                                        <p class="category">Fecha Termino: </p>
+                                        <p class="category">{{obj.fechaTermino | date: 'MM-dd-yyyy'}}</p>
+                                </div>
+                                <p-progressBar [value]=obj.porcentajeReal [style]="{'height': '6px'}"></p-progressBar>
+                                <br>
+                                <div class="category text-center">
+                                    {{obj.porcentajeReal}} %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                
+                               <!--  <i class="fa fa-history"></i> Updated 3 minutes ago-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow-x: scroll; max-height: 1000px;" class="col-md-3" pDroppable="dd" (onDrop)="dropTareasSinHacer($event)">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Pendientes</h4>
+                        <p class="category">Tareas sin hacer</p>
+                    </div>
+                    <div class="content">
+                        <div [ngClass]="dinamicClassAdvancePercentage(obj)" *ngFor="let obj of tareasPendientes" class="card ui-state-default ui-helper-clearfix" pDraggable="dd"
+                            (onDragStart)="dragStartTareasSinHacer($event,obj)" (onDragEnd)="dragEndTareasSinHacer($event)">
+                            <div class="header">
+                                <i class="fa fa-arrows fa-1x" style="float:right;margin-top:8px"></i>
+                                <h4 class="title font-size-task">{{obj.nombre}}</h4>
+                                <div class="category">
+                                        <p class="category">Fecha Termino: </p>
+                                        <p class="category">{{obj.fechaTermino | date: 'MM-dd-yyyy'}}</p>
+                                    </div>
+                                <p-progressBar [value]=obj.porcentajeReal [style]="{'height': '6px'}"></p-progressBar>
+                                <br>
+                                <div class="category text-center">
+                                    {{obj.porcentajeReal}} %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <!--  <i class="fa fa-history"></i> Updated 3 minutes ago-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow-x: scroll; max-height: 1000px;" class="col-md-3" pDroppable="dd" (onDrop)="dropTareasEnDesarrollo($event)">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">En Proceso</h4>
+                        <p class="category">Tareas en desarrollo</p>
+                    </div>
+                    <div class="content">
+                        <div [ngClass]="dinamicClassAdvancePercentage(obj)" *ngFor="let obj of tareasEnDesarrollo" class="card ui-state-default ui-helper-clearfix" pDraggable="dd" (onDragStart)="dragStartTareasEnDesarrollo($event,obj)"
+                            (onDragEnd)="dragEndTareasEnDesarrollo($event)">
+                            <div class="header">
+                                <i class="fa fa-arrows fa-1x" style="float:right;margin-top:8px"></i>
+                                <h4 class="title font-size-task">{{obj.nombre}}</h4>
+                                <div class="category">
+                                        <p class="category">Fecha Termino: </p>
+                                        <p class="category">{{obj.fechaTermino | date: 'MM-dd-yyyy'}}</p>
+                                    </div>
+                                <p-progressBar [value]=obj.porcentajeReal [style]="{'height': '6px'}"></p-progressBar>
+                                <br>
+                                <div class="category text-center">
+                                    <a href="javascript:void(0)" (click)="obtenerPorcentajeAvance(obj)">{{obj.porcentajeReal}} %</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                                <!--  <i class="fa fa-history"></i> Updated 3 minutes ago-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow-x: scroll; max-height: 1000px;" class="col-md-3" pDroppable="dd" (onDrop)="dropTareasTerminadas($event)">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Terminadas</h4>
+                        <p class="category">Tareas finalizadas</p>
+                    </div>
+                    <div class="content">
+                        <div [ngClass]="dinamicClassAdvancePercentage(obj)" *ngFor="let obj of tareasTerminadas" class="card ui-state-default ui-helper-clearfix" pDraggable="dd" (onDragStart)="dragStartTareasTerminadas($event,obj)"
+                            (onDragEnd)="dragEndTareasTerminadas($event)">
+                            <div class="header">
+                                <i class="fa fa-arrows fa-1x" style="float:right;margin-top:8px"></i>
+                                <h4 class="title font-size-task">{{obj.nombre}}</h4>
+                                <div class="category">
+                                        <p class="category">Fecha Termino: </p>
+                                        <p class="category">{{obj.fechaTermino | date: 'MM-dd-yyyy'}}</p>
+                                    </div>
+                                <p-progressBar [value]=obj.porcentajeReal [style]="{'height': '6px'}"></p-progressBar>
+                                <br>
+                                <div class="category text-center">
+                                    {{obj.porcentajeReal}} %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr>
+                            <div class="stats">
+                               <!--  <i class="fa fa-history"></i> Updated 3 minutes ago-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Modificar porcentaje de avance" [(visible)]="displayDialogoPorcentaje" [modal]="false">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="number" max="100" min="0" pKeyFilter="int" pInputText  [(ngModel)]="porcentajeAvanzado" class="form-control"/>
+            <p-slider [(ngModel)]="porcentajeAvanzado" class="form-control"></p-slider>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="form-group text-center">
+        <button type="button" class="btn btn-default button-azul" (click)="updateAvanceTarea()">Guardar Avance</button>
+    </div>
+</p-dialog>

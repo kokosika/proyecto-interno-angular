@@ -1,0 +1,193 @@
+<p-table #dt [columns]="cols" [value]="riesgos" selectionMode="single" [(selection)]="selectedRiesgo" [paginator]="true"
+    [rows]="10" [responsive]="true" [autoLayout]="true" class="table table-hover table-responsive table-bordered" [loading]=false>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:right">
+            <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Agregar"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr class="thead-light">
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th>
+                Operaciones
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                <a href="javascript:void(0)" (click)="selectRow(rowData)">Editar</a>||
+                <a href="javascript:void(0)" (click)="deleteConfir(rowData.idRiesgo)">Eliminar</a>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-dialog header="Detalles Riesgo" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="false" [width]="600">
+    <div class="ui-g ui-fluid" *ngIf="riesgo">
+        <form [formGroup]="rFormInsert" (ngSubmit)="save(rFormInsert.value)">
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="nombreR">Nombre Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="nombreR" type="text" class="form-control" formControlName="nombreRiesgo" />
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="descripcionR">Descripción Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputText [rows]="4" [cols]="30" autoResize="autoResize" id="descripcionR" type="text" class="form-control" formControlName="descripcionRiesgo"></textarea>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planM">Plan de Mitigación</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputText [rows]="3" [cols]="30" autoResize="autoResize" id="planM" type="text" class="form-control" formControlName="planDMitigac"></textarea>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planA">Plan de Acuerdos</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputText [rows]="3" [cols]="30" autoResize="autoResize" id="planA" type="text" class="form-control" formControlName="planDAcuerdos"></textarea>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="responsableR">Responsable</label>
+                </div>
+                <div class="ui-g-8">
+
+                    <p-dropdown id="responsableR" [autoWidth]="false" [options]="comboUC" placeholder="Seleccione un Responsable" optionLabel="nombreResponsable"
+                        [showClear]="true" formControlName="idResponsable"></p-dropdown>
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="probR">Probabilidad del Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown id="probR" [(ngModel)]="unaVariable" [autoWidth]="false" [options]="comboPR" placeholder="Seleccione Prob. Riesgo"
+                        optionLabel="nombProbRiesgo" [showClear]="true" formControlName="idProbRiesgo"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="vigR">Vigencia del Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown id="vigR" [autoWidth]="false" [options]="comboVG" placeholder="Seleccione Vig. Riesgo" optionLabel="nombVigRiesgo"
+                        [showClear]="true" formControlName="idVigRiesgo"></p-dropdown>
+                </div>
+            </div>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="close()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+
+<p-dialog header="Detalles Riesgo" [(visible)]="displayEdit" [responsive]="true" showEffect="fade" [modal]="false" [width]="600">
+    <div class="ui-g ui-fluid" *ngIf="riesgo">
+        <form [formGroup]="rFormEdit" (ngSubmit)="update(rFormEdit.value)">
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="nombreR">Nombre Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="nombreR" type="text" class="form-control" formControlName="nombreRiesgo" />
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="descripcionR">Descripción Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputText [rows]="4" [cols]="30" autoResize="autoResize" id="descripcionR" type="text" class="form-control" formControlName="descripcionRiesgo"></textarea>
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planM">Plan de Mitigación</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea pInputText [rows]="3" [cols]="30" autoResize="autoResize" id="planM" type="text" class="form-control" formControlName="planDMitigac"></textarea>
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="planA">Plan de Acuerdos</label>
+                </div>
+                <div class="ui-g-8">
+
+                    <textarea pInputText [rows]="3" [cols]="30" autoResize="autoResize" id="planA" type="text" class="form-control" formControlName="planDAcuerdos"></textarea>
+
+                </div>
+            </div>
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="responsableR">Responsable</label>
+                </div>
+                <div class="ui-g-8">
+
+                    <p-dropdown id="responsableR" [autoWidth]="false" [options]="comboUC" placeholder="Seleccione un Responsable" optionLabel="nombreResponsable"
+                        [showClear]="true" formControlName="idResponsable"></p-dropdown>
+
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="probR">Probabilidad del Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+
+                    <p-dropdown id="probR" [autoWidth]="false" [options]="comboPR" placeholder="Seleccione Prob. Riesgo" optionLabel="nombProbRiesgo"
+                        [showClear]="true" formControlName="idProbRiesgo"></p-dropdown>
+
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="vigR">Vigencia del Riesgo</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown id="vigR" [autoWidth]="false" [options]="comboVG" placeholder="Seleccione Vig. Riesgo" optionLabel="nombVigRiesgo"
+                        [showClear]="true" formControlName="idVigRiesgo"></p-dropdown>
+
+                </div>
+            </div>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+                <button type="button" class="btn btn-primary" (click)="close()">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+</p-dialog>
+<!--<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425" appendTo="body" #cd>-->
+<p-confirmDialog header="Confirmación" icon="fa fa-question-circle" width="425" appendTo="body" #cd>
+    <p-footer>
+        <button type="button" pButton icon="fa-close" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="fa-check" label="Si" (click)="cd.accept()"></button>
+    </p-footer>
+</p-confirmDialog>

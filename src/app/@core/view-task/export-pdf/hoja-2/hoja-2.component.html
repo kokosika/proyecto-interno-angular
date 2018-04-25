@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2 text-left">
+      <p class="font-size-header">&nbsp;</p>
+      <p class="font-size-header">&nbsp;</p>
+      <p class="font-size-header">&nbsp;</p>
+      <p class="font-size-header">&nbsp;</p>
+    </div>
+    <div class="col-md-2 text-left">
+      <p class="font-size-header">&nbsp;</p>
+      <p class="font-size-header">&nbsp;</p>
+      <p class="font-size-header">&nbsp;</p>
+      <p class="font-size-header">&nbsp;</p>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-3 text-right">&nbsp;</div>
+  </div>
+  <div class="jumbotron text-center" style=" height: 400px;">
+    <div class="row">
+      <div class="col-sm-4 text-left" style="border-bottom-color: #161F31; border-bottom-style: solid; border-bottom-width: 2px;">
+        <h2>Antecedentes Generales</h2>
+      </div>      
+
+      <div class="col-md-8 text-right">
+
+          <table class="table table-bordered text-left" border=1px bodercolor=white>           
+              <tbody>
+                <tr>
+              <td class="color-tabla" style="color:white">Área de Negocio</td>
+              <td>{{cliente.nombreCliente}}</td>
+                </tr>
+                <tr>
+              <td class="color-tabla" style="color:white">Contraparte de proyecto cliente</td>
+              <td>{{cliente.nombreContraparte}}</td>
+                </tr>
+                <tr>
+              <td class="color-tabla" style="color:white">Jefe de Proyecto Sermaluc</td>
+              <td>{{proyecto.userJP}}</td>
+                  </tr>
+                  <tr>
+              <td class="color-tabla" style="color:white">Dotación</td>
+              <td>{{proyecto.userEC}}</td>
+            </tr>
+            <tr>
+              <td class="color-tabla" style="color:white">Inicio Proyecto</td>
+              <td>{{proyecto.fechaInicio}}</td>
+            </tr>
+            <tr>
+              <td class="color-tabla" style="color:white">Fin Proyecto</td>
+              <td>{{proyecto.fechaFin}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+      </div>
+    </div>
+  </div>
+
+
+  <app-hoja-footer></app-hoja-footer>
+</div>
